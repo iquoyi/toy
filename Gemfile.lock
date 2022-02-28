@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/lanej0/terminal-notifier-guard.git
+  revision: 9e2f224848a902a1ceffb130a13499b7b2fcf976
+  specs:
+    terminal-notifier-guard (1.7.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -280,6 +286,7 @@ DEPENDENCIES
   sequel-rails
   spring
   sqlite3
+  terminal-notifier-guard!
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 4.1.0)
