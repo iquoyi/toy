@@ -15,11 +15,15 @@
 #
 # Uncomment the following lines to make the configuration take effect.
 
+CommitMsg:
+  CapitalizedSubject:
+    enabled: false
+
 PreCommit:
- RuboCop:
-   enabled: true
-   command: ['bundle', 'exec', 'rubocop']
-  #  on_warn: fail # Treat all warnings as failures
+  RuboCop:
+    enabled: true
+    command: ['bundle', 'exec', 'rubocop']
+    # on_warn: fail # Treat all warnings as failures
 
 #  TrailingWhitespace:
 #    enabled: true
