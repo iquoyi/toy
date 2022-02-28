@@ -1,7 +1,12 @@
 inherit_from: .rubocop_todo.yml
+require:
+  - rubocop-rails
+  - rubocop-rspec
 
 AllCops:
   NewCops: disable
   Exclude:
     - 'db/schema.rb'
     - 'lib/tasks/auto_annotate_models.rake'
+    - 'Guardfile'
+    - 'spec/spec_helper.rb'
