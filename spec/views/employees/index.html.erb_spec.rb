@@ -25,9 +25,4 @@ RSpec.describe "employees/index", type: :view do
     expect(rendered).to include('Last Name 2')
     expect(rendered).to include('MyText 2')
   end
-
-  it 'renders include new link' do
-    render
-    expect(rendered).to include('New Employee')
-  end
 end
