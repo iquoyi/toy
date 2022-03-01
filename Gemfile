@@ -33,7 +33,8 @@ gem 'sequel_bitemporal'
 
 group :development, :test do
   gem 'pry'
-  gem "rspec-rails"
+  gem 'rspec-rails'
+  gem 'timecop'
 end
 
 group :development do
