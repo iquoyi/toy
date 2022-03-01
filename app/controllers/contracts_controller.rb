@@ -36,7 +36,7 @@ class ContractsController < ApplicationController
 
   # PATCH/PUT /contracts/1 or /contracts/1.json
   def update
-    @employee.set(employee_params)
+    @contract.set(contract_params)
 
     respond_to do |format|
       if @contract.save(raise_on_failure: false)

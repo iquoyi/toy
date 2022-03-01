@@ -1,11 +1,12 @@
 <%= form_for(:contract, form_option_builder(contract)) do |form| %>
+<%# binding.pry %>
   <% if contract.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(contract.errors.count, "error") %> prohibited this contract from being saved:</h2>
 
       <ul>
-        <% contract.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% contract.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
         <% end %>
       </ul>
     </div>

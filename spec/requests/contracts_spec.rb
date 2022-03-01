@@ -16,16 +16,24 @@ RSpec.describe "/contracts", type: :request do
   # Contract. As you add validations to Contract, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    skip("Add a hash of attributes valid for your model")
+    {
+      start_date: '2022-03-01',
+      end_date: '2022-03-02',
+      legal: 'Legal'
+    }
   end
 
   let(:invalid_attributes) do
-    skip("Add a hash of attributes invalid for your model")
+    {
+      start_date: nil,
+      end_date: '',
+      legal: 'Legal'
+    }
   end
 
   describe "GET /index" do
     it "renders a successful response" do
-      Contract.create! valid_attributes
+      Contract.create valid_attributes
       get contracts_url
       expect(response).to be_successful
     end
@@ -33,8 +41,8 @@ RSpec.describe "/contracts", type: :request do
 
   describe "GET /show" do
     it "renders a successful response" do
-      contract = Contract.create! valid_attributes
-      get contract_url(contract)
+      contract = Contract.create valid_attributes
+      get contract_url(contract.id)
       expect(response).to be_successful
     end
   end
@@ -48,8 +56,8 @@ RSpec.describe "/contracts", type: :request do
 
   describe "GET /edit" do
     it "render a successful response" do
-      contract = Contract.create! valid_attributes
-      get edit_contract_url(contract)
+      contract = Contract.create valid_attributes
+      get edit_contract_url(contract.id)
       expect(response).to be_successful
     end
   end
@@ -64,7 +72,7 @@ RSpec.describe "/contracts", type: :request do
 
       it "redirects to the created contract" do
         post contracts_url, params: { contract: valid_attributes }
-        expect(response).to redirect_to(contract_url(Contract.last))
+        expect(response).to redirect_to(contract_url(Contract.last.id))
       end
     end
 
@@ -85,28 +93,32 @@ RSpec.describe "/contracts", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) do
-        skip("Add a hash of attributes valid for your model")
+        {
+          start_date: '2022-03-01',
+          end_date: '2022-03-02',
+          legal: 'New Legal'
+        }
       end
 
       it "updates the requested contract" do
-        contract = Contract.create! valid_attributes
-        patch contract_url(contract), params: { contract: new_attributes }
+        contract = Contract.create valid_attributes
+        patch contract_url(contract.id), params: { contract: new_attributes }
         contract.reload
-        skip("Add assertions for updated state")
+        expect(contract.legal).to eq(new_attributes[:legal])
       end
 
       it "redirects to the contract" do
-        contract = Contract.create! valid_attributes
-        patch contract_url(contract), params: { contract: new_attributes }
+        contract = Contract.create valid_attributes
+        patch contract_url(contract.id), params: { contract: new_attributes }
         contract.reload
-        expect(response).to redirect_to(contract_url(contract))
+        expect(response).to redirect_to(contract_url(contract.id))
       end
     end
 
     context "with invalid parameters" do
       it "renders a successful response (i.e. to display the 'edit' template)" do
-        contract = Contract.create! valid_attributes
-        patch contract_url(contract), params: { contract: invalid_attributes }
+        contract = Contract.create valid_attributes
+        patch contract_url(contract.id), params: { contract: invalid_attributes }
         expect(response).to be_successful
       end
     end
@@ -114,15 +126,15 @@ RSpec.describe "/contracts", type: :request do
 
   describe "DELETE /destroy" do
     it "destroys the requested contract" do
-      contract = Contract.create! valid_attributes
+      contract = Contract.create valid_attributes
       expect do
-        delete contract_url(contract)
+        delete contract_url(contract.id)
       end.to change(Contract, :count).by(-1)
     end
 
     it "redirects to the contracts list" do
-      contract = Contract.create! valid_attributes
-      delete contract_url(contract)
+      contract = Contract.create valid_attributes
+      delete contract_url(contract.id)
       expect(response).to redirect_to(contracts_url)
     end
   end
