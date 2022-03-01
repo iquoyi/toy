@@ -29,6 +29,7 @@ gem 'rubocop-rspec', require: false
 
 gem 'sqlite3'
 gem 'sequel-rails'
+gem 'sequel_bitemporal'
 
 group :development, :test do
   gem 'pry'
