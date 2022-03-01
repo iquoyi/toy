@@ -1,4 +1,6 @@
-<h1>Editing Employee</h1>
+<% content_for :breadcrumb do %>
+  <li class="breadcrumb-item active">Employees <span class="badge bg-warning">UPDATE</span></li>
+<% end %>
 
 <%= render 'form', employee: @employee %>
 
