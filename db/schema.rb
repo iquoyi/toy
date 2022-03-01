@@ -14,8 +14,9 @@ Sequel.migration do
     
     create_table(:contracts) do
       primary_key :id, :type=>"INTEGER"
+      foreign_key :employee_id, :employees, :type=>"INTEGER"
     end
-    
+
     create_table(:employee_versions) do
       primary_key :id, :type=>"INTEGER"
       column :master_id, "INTEGER"
@@ -46,6 +47,7 @@ end
 self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20220301043314_create_contracts.rb')"
 self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20220301075542_create_employee_versions.rb')"
 self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20220301075941_remove_unused_columns_from_employees.rb')"
+self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20220301134647_add_foreign_key_to_contracts.rb')"
 self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20220301140748_create_contract_versions.rb')"
 self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20220301140810_remove_unused_columns_from_contracts.rb')"
                 end
