@@ -1,0 +1,35 @@
+<% content_for :breadcrumb do %>
+  <li class="breadcrumb-item active">Contracts <span class="badge bg-primary">List</span></li>
+<% end %>
+
+<p id="notice"><%= notice %></p>
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover table-bordered text-center">
+    <thead>
+      <tr>
+        <th>Start date</th>
+        <th>End date</th>
+        <th>Legal</th>
+        <th colspan="3">Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @contracts.each do |contract| %>
+        <tr>
+          <td><%= contract.start_date %></td>
+          <td><%= contract.end_date %></td>
+          <td><%= contract.legal %></td>
+          <td><%= link_to 'Show', contract_path(contract.id) %></td>
+          <td><%= link_to 'Edit', edit_contract_path(contract.id) %></td>
+          <td><%= link_to 'Destroy', contract_path(contract.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br>
+
+<%= link_to 'New Contract', new_contract_path %>

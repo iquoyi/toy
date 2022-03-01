@@ -1,0 +1,23 @@
+<% content_for :breadcrumb do %>
+  <li class="breadcrumb-item active">Contracts <span class="badge bg-success">DETAIL</span></li>
+<% end %>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @contract.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @contract.end_date %>
+</p>
+
+<p>
+  <strong>Legal:</strong>
+  <%= @contract.legal %>
+</p>
+
+<%= link_to 'Edit', edit_contract_path(@contract.id) %> |
+<%= link_to 'Back', contracts_path %>

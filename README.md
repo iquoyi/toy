@@ -43,3 +43,10 @@ Interview project.
 
 ```sh
 ```
+
+## Test
+
+```sh
+> rails db:test:prepare
+> rspec
+```
