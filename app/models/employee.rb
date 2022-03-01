@@ -1,4 +1,6 @@
 class Employee < Sequel::Model
+  plugin :bitemporal, version_class: EmployeeVersion
+
   def validate
     super
     errors.add(:first_name, "can't be empty") if first_name.blank?
