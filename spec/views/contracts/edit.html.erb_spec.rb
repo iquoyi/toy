@@ -2,11 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "contracts/edit", type: :view do
   before do
-    @contract = assign(:contract, Contract.create(
-                                    start_date: '2022-03-01',
-                                    end_date: '2022-03-02',
-                                    legal: "MyString"
-                                  ))
+    @contract = Contract.new
+    @contract.update_attributes(start_date: '2022-03-01', end_date: '2022-03-02', legal: "MyString")
   end
 
   it "renders the edit contract form" do
