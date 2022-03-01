@@ -1,0 +1,8 @@
+<% content_for :breadcrumb do %>
+  <li class="breadcrumb-item active">Contracts <span class="badge bg-warning">UPDATE</span></li>
+<% end %>
+
+<%= render 'form', contract: @contract %>
+
+<%= link_to 'Show', contract_path(@contract.id) %> |
+<%= link_to 'Back', contracts_path %>

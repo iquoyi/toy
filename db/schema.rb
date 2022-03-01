@@ -1,5 +1,12 @@
 Sequel.migration do
   change do
+    create_table(:contracts) do
+      primary_key :id, :type=>"INTEGER"
+      column :start_date, "date"
+      column :end_date, "date"
+      column :legal, "varchar(255)"
+    end
+    
     create_table(:employees) do
       primary_key :id, :type=>"INTEGER"
       column :first_name, "varchar(255)"
@@ -15,8 +22,9 @@ Sequel.migration do
     end
   end
 end
-Sequel.migration do
-  change do
-    self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20220228074601_create_employees.rb')"
-  end
-end
+              Sequel.migration do
+                change do
+                  self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20220228074601_create_employees.rb')"
+self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20220301043314_create_contracts.rb')"
+                end
+              end
