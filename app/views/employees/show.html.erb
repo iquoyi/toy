@@ -26,3 +26,46 @@
 
 <%= link_to 'Edit', edit_employee_path(@employee.id) %> |
 <%= link_to 'Back', employees_path %>
+
+<% if @versions %>
+  <div class="table-responsive mt-4">
+    <table class="table table-striped table-hover table-bordered text-center">
+      <caption>List of versions</caption>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Master Id</th>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Birthday</th>
+          <th>Address</th>
+          <th>Valid From</th>
+          <th>Valid To</th>
+          <th>Created At</th>
+          <th>Expired At</th>
+          <th colspan="3">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @versions.each do |version| %>
+          <tr>
+            <td><%= version.id %></td>
+            <td><%= version.master_id %></td>
+            <td><%= version.first_name %></td>
+            <td><%= version.last_name %></td>
+            <td><%= version.birthday %></td>
+            <td><%= version.address %></td>
+            <td><%= version.valid_from %></td>
+            <td><%= version.valid_to %></td>
+            <td><%= version.created_at %></td>
+            <td><%= version.expired_at %></td>
+            <td><%= link_to 'Show', '#' %></td>
+            <td><%= link_to 'Edit', '#' %></td>
+            <td><%= link_to 'Destroy', '#' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

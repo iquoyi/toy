@@ -13,6 +13,6 @@ RSpec.describe "layouts/application.html.erb", type: :view do
 
   it "renders include breadcrumb partial view" do
     render
-    assert_select "body > .container-md > nav > ol.breadcrumb", 'Home'
+    assert_select "body > .container-fluid > nav > ol.breadcrumb", 'Home'
   end
 end
