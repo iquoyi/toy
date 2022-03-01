@@ -11,6 +11,14 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render 'layouts/nav' %>
+
+    <div class="container-md">
+      <%= render 'layouts/breadcrumb' %>
+
+      <%= yield %>
+    </div>
+
+    <%= render 'layouts/footer' %>
   </body>
 </html>
