@@ -1,12 +1,5 @@
 Sequel.migration do
   change do
-    create_table(:contracts) do
-      primary_key :id, :type=>"INTEGER"
-      column :start_date, "date"
-      column :end_date, "date"
-      column :legal, "varchar(255)"
-    end
-    
     create_table(:employee_versions) do
       primary_key :id, :type=>"INTEGER"
       column :master_id, "INTEGER"
@@ -29,6 +22,14 @@ Sequel.migration do
       
       primary_key [:filename]
     end
+    
+    create_table(:contracts) do
+      primary_key :id, :type=>"INTEGER"
+      column :start_date, "date"
+      column :end_date, "date"
+      column :legal, "varchar(255)"
+      foreign_key :employee_id, :employees, :type=>"INTEGER"
+    end
   end
 end
               Sequel.migration do
@@ -37,5 +38,6 @@ end
 self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20220301043314_create_contracts.rb')"
 self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20220301075542_create_employee_versions.rb')"
 self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20220301075941_remove_unused_columns_from_employees.rb')"
+self << "INSERT INTO `schema_migrations` (`filename`) VALUES ('20220301134647_add_foreign_key_to_contracts.rb')"
                 end
               end
