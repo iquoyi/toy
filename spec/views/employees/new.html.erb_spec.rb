@@ -12,6 +12,8 @@ RSpec.describe "employees/new", type: :view do
   it "renders new employee form" do
     render
 
+    assert_select "h1", "New Employee"
+
     assert_select "form[action=?][method=?]", employees_path, "post" do
       assert_select "input[name=?]", "employee[first_name]"
 
