@@ -19,6 +19,8 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Sequel::Model.strict_param_setting = false
+
 module Toy
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
