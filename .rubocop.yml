@@ -6,7 +6,36 @@ require:
 AllCops:
   NewCops: disable
   Exclude:
+    - 'bin/*'
     - 'db/schema.rb'
     - 'lib/tasks/auto_annotate_models.rake'
     - 'Guardfile'
     - 'spec/spec_helper.rb'
+
+# Ruby
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+Style/Documentation:
+  Enabled: false
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+# Rails
+Rails/ActiveRecordAliases:
+  Enabled: false
+
+Rails/CreateTableWithTimestamps:
+  Enabled: false
+
+# RSpec
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/InstanceVariable:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
