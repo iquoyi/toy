@@ -23,14 +23,10 @@ class ContractsController < ApplicationController
   def create
     @contract = Contract.new(contract_params)
 
-    respond_to do |format|
-      if @contract.save(raise_on_failure: false)
-        format.html { redirect_to contract_url(@contract.id), notice: "Contract was successfully created." }
-        format.json { render :show, status: :created, location: @contract }
-      else
-        format.html { render :new }
-        format.json { render json: @contract.errors, status: :unprocessable_entity }
-      end
+    if @contract.update_attributes(contract_params)
+      redirect_to contract_url(@contract.id), notice: "Contract was successfully created."
+    else
+      render :new
     end
   end
 
@@ -38,14 +34,10 @@ class ContractsController < ApplicationController
   def update
     @contract.set(contract_params)
 
-    respond_to do |format|
-      if @contract.save(raise_on_failure: false)
-        format.html { redirect_to contract_url(@contract.id), notice: "Contract was successfully updated." }
-        format.json { render :show, status: :ok, location: @contract }
-      else
-        format.html { render :edit }
-        format.json { render json: @contract.errors, status: :unprocessable_entity }
-      end
+    if @contract.update_attributes(contract_params)
+      redirect_to contract_url(@contract.id), notice: "Contract was successfully updated."
+    else
+      render :edit
     end
   end
 

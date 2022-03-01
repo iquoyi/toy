@@ -2,11 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "contracts/show", type: :view do
   before do
-    @contract = assign(:contract, Contract.create(
-                                    start_date: '2022-03-01',
-                                    end_date: '2022-03-02',
-                                    legal: "Legal"
-                                  ))
+    @contract = Contract.new
+    @contract.update_attributes(start_date: '2022-03-01', end_date: '2022-03-02', legal: "MyString")
   end
 
   it "renders attributes in <p>" do

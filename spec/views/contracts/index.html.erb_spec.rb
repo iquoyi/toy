@@ -2,18 +2,13 @@ require 'rails_helper'
 
 RSpec.describe "contracts/index", type: :view do
   before do
-    assign(:contracts, [
-             Contract.create(
-               start_date: '2022-03-01',
-               end_date: '2022-03-01',
-               legal: "Legal_1"
-             ),
-             Contract.create(
-               start_date: '2022-03-01',
-               end_date: '2022-03-01',
-               legal: "Legal_2"
-             )
-           ])
+    @contract1 = Contract.new
+    @contract1.update_attributes(start_date: "2022-03-01", end_date: "2022-03-01", legal: "Legal_1")
+
+    @contract2 = Contract.new
+    @contract2.update_attributes(start_date: "2022-03-01", end_date: "2022-03-01", legal: "Legal_2")
+
+    @contracts = [@contract1, @contract2]
   end
 
   it "renders a list of contracts" do
