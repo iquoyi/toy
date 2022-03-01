@@ -12,11 +12,6 @@ Sequel.migration do
       column :expired_at, "date"
     end
     
-    create_table(:contracts) do
-      primary_key :id, :type=>"INTEGER"
-      foreign_key :employee_id, :employees, :type=>"INTEGER"
-    end
-
     create_table(:employee_versions) do
       primary_key :id, :type=>"INTEGER"
       column :master_id, "INTEGER"
@@ -38,6 +33,11 @@ Sequel.migration do
       column :filename, "varchar(255)", :null=>false
       
       primary_key [:filename]
+    end
+    
+    create_table(:contracts) do
+      primary_key :id, :type=>"INTEGER"
+      foreign_key :employee_id, :employees, :type=>"INTEGER"
     end
   end
 end
