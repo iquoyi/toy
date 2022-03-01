@@ -101,14 +101,15 @@ RSpec.describe "/employees", type: :request do
       end
 
       it "updates the requested employee" do
-        employee = Employee.create valid_attributes
+        employee = Employee.new
+        employee.update_attributes valid_attributes
         patch employee_url(employee.id), params: { employee: new_attributes }
-        employee.reload
-        assert_equal new_attributes[:first_name], employee.first_name
+        assert_equal new_attributes[:first_name], employee.current_version(reload: true).first_name
       end
 
       it "redirects to the employee" do
-        employee = Employee.create valid_attributes
+        employee = Employee.new
+        employee.update_attributes valid_attributes
         patch employee_url(employee.id), params: { employee: new_attributes }
         employee.reload
         expect(response).to redirect_to(employee_url(employee.id))
@@ -126,10 +127,11 @@ RSpec.describe "/employees", type: :request do
 
   describe "DELETE /destroy" do
     it "destroys the requested employee" do
-      employee = Employee.create valid_attributes
+      employee = Employee.new
+      employee.update_attributes valid_attributes
       expect do
         delete employee_url(employee.id)
-      end.to change(Employee, :count).by(-1)
+      end.to change { Employee.with_current_or_future_versions.all.size }.by(-1)
     end
 
     it "redirects to the employees list" do

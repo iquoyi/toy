@@ -3,7 +3,7 @@ class EmployeesController < ApplicationController
 
   # GET /employees or /employees.json
   def index
-    @employees = Employee.all
+    @employees = Employee.with_current_version.all
   end
 
   # GET /employees/1 or /employees/1.json
@@ -21,9 +21,9 @@ class EmployeesController < ApplicationController
 
   # POST /employees or /employees.json
   def create
-    @employee = Employee.new(employee_params)
+    @employee = Employee.new
 
-    if @employee.save raise_on_failure: false
+    if @employee.update_attributes(employee_params)
       redirect_to employee_url(@employee.id), notice: "Employee was successfully created."
     else
       render :new
@@ -32,9 +32,7 @@ class EmployeesController < ApplicationController
 
   # PATCH/PUT /employees/1 or /employees/1.json
   def update
-    @employee.set(employee_params)
-
-    if @employee.save raise_on_failure: false
+    if @employee.update_attributes(employee_params)
       redirect_to employee_url(@employee.id), notice: "Employee was successfully updated."
     else
       render :edit
