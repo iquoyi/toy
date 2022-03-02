@@ -37,14 +37,14 @@ RSpec.describe ContractVersion, type: :model do
       it 'create a contract' do
         expect do
           described_class.create(invalid_attributes)
-        end.to raise_error("start_date can't be blank")
+        end.to raise_error("start_date is not present")
       end
 
       it 'update a contract' do
         contract = described_class.create(valid_attributes)
         expect do
           contract.update(start_date: nil)
-        end.to raise_error("start_date can't be blank")
+        end.to raise_error("start_date is not present")
       end
     end
 

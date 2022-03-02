@@ -1,7 +1,8 @@
 class ContractVersion < Sequel::Model
+  plugin :validation_helpers
+
   def validate
     super
-    errors.add(:start_date, "can't be blank") if start_date.blank?
-    errors.add(:end_date, "can't be blank") if end_date.blank?
+    validates_presence [:start_date, :end_date]
   end
 end
