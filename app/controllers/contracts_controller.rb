@@ -22,10 +22,10 @@ class ContractsController < ApplicationController
 
   # POST /contracts
   def create
-    @contract = Contract.new(contract_params)
+    @contract = Contract.new(employee_id: @employee.id)
 
     if @contract.update_attributes(contract_params)
-      @employee.add_contract(@contract)
+      # @employee.add_contract(@contract)
       redirect_to employee_contract_url(@employee.id, @contract.id), notice: "Contract was successfully created."
     else
       render :new
@@ -48,7 +48,7 @@ class ContractsController < ApplicationController
   def destroy
     @contract.destroy
 
-    redirect_to employee_contracts_url(@employee.id), notice: "Contract was successfully destroyed."
+    redirect_to employee_url(@employee.id), notice: "Contract was successfully destroyed."
   end
 
   private
