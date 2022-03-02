@@ -25,6 +25,7 @@ class ContractsController < ApplicationController
     @contract = Contract.new(contract_params)
 
     if @contract.update_attributes(contract_params)
+      @employee.add_contract(@contract)
       redirect_to employee_contract_url(@employee.id, @contract.id), notice: "Contract was successfully created."
     else
       render :new
@@ -36,6 +37,7 @@ class ContractsController < ApplicationController
     @contract.set(contract_params)
 
     if @contract.update_attributes(contract_params)
+      # @employee.add_contract(@contract)
       redirect_to employee_contract_url(@employee.id, @contract.id), notice: "Contract was successfully updated."
     else
       render :edit

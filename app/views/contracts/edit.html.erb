@@ -4,5 +4,5 @@
 
 <%= render 'form', contract: @contract %>
 
-<%= link_to 'Show', contract_path(@contract.id) %> |
-<%= link_to 'Back', contracts_path %>
+<%= link_to 'Show', employee_contract_path(@employee.id, @contract.id) %> |
+<%= link_to 'Back', employee_path(@employee.id) %>
