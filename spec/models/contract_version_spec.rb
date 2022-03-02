@@ -26,10 +26,10 @@ RSpec.describe ContractVersion, type: :model do
       end
 
       it 'update a contract' do
-        contract = described_class.create(valid_attributes)
-        contract.update(legal: 'New Legal')
-        contract.reload
-        expect(contract.legal).to eq('New Legal')
+        contract_version = described_class.create(valid_attributes)
+        contract_version.update(legal: 'New Legal')
+        contract_version.reload
+        expect(contract_version.legal).to eq('New Legal')
       end
     end
 
@@ -41,17 +41,17 @@ RSpec.describe ContractVersion, type: :model do
       end
 
       it 'update a contract' do
-        contract = described_class.create(valid_attributes)
+        contract_version = described_class.create(valid_attributes)
         expect do
-          contract.update(start_date: nil)
+          contract_version.update(start_date: nil)
         end.to raise_error("start_date is not present")
       end
     end
 
     it 'destroy a contract' do
-      contract = described_class.create(valid_attributes)
+      contract_version = described_class.create(valid_attributes)
       expect do
-        contract.delete
+        contract_version.delete
       end.to change(described_class, :count).by(-1)
     end
   end
