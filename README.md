@@ -57,4 +57,8 @@ $ rails s
 ```sh
 > rails db:test:prepare
 > rspec
+...
+> rails c
+# all employees with current contract
+> Employee.with_contracts.all
 ```

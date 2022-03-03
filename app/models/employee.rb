@@ -14,16 +14,17 @@ class Employee < Sequel::Model
       ).all
     end
 
-    # # dataset for employees with contract fields
-    # def with_contracts
-    #   association_left_join(:current_version, contracts: :current_version)
-    # end
+    # dataset for employees with contract fields
+    def with_contracts
+      # eager_graph(:current_version, contracts: :current_version)
+      association_left_join(:current_version, contracts: :current_version)
+    end
 
-    # # dataset for employees with a current contract fields
-    # def with_current_contract
-    #   today = Time.zone.today
-    #   with_contracts.where(Sequel.lit("start_date <= ? AND end_date >= ?", today, today))
-    # end
+    # dataset for employees with a current contract fields
+    def with_current_contract
+      today = Time.zone.today
+      with_contracts.where(Sequel.lit("start_date <= ? AND end_date >= ?", today, today))
+    end
   end
 end
 
