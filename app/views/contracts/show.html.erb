@@ -1,23 +1,23 @@
 <% content_for :breadcrumb do %>
   <li class="breadcrumb-item active">Contracts <span class="badge bg-success">DETAIL</span></li>
+  <%= back_to employee_path(@employee.id) %>
+<% end %>
+
+<% content_for :functions do %>
+  <%= link_to 'Edit', edit_employee_contract_path(@employee.id, @contract.id), class: 'btn btn-danger text-white' %>
 <% end %>
 
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @contract.start_date %>
-</p>
-
-<p>
-  <strong>End date:</strong>
-  <%= @contract.end_date %>
-</p>
-
-<p>
-  <strong>Legal:</strong>
-  <%= @contract.legal %>
-</p>
-
-<%= link_to 'Edit', edit_employee_contract_path(@employee.id, @contract.id) %> |
-<%= link_to 'Back', employee_path(@employee.id) %>
+<div class="card shadow-sm">
+  <div class="card-body">
+    <dl>
+      <dt><strong>Start date:</strong></dt>
+      <dd><%= @contract.start_date %></dd>
+      <dt><strong>End date:</strong></dt>
+      <dd><%= @contract.end_date %></dd>
+      <dt><strong>Legal:</strong></dt>
+      <dd><%= @contract.legal %></dd>
+    </dl>
+  </div>
+</div>

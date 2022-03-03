@@ -1,8 +1,10 @@
 <% content_for :breadcrumb do %>
   <li class="breadcrumb-item active">Contracts <span class="badge bg-warning">UPDATE</span></li>
+  <%= back_to employee_path(@employee.id) %>
+<% end %>
+
+<% content_for :functions do %>
+  <%= link_to 'Show', employee_contract_path(@employee.id, @contract.id), class: 'btn btn-info text-white' %>
 <% end %>
 
 <%= render 'form', contract: @contract %>
-
-<%= link_to 'Show', employee_contract_path(@employee.id, @contract.id) %> |
-<%= link_to 'Back', employee_path(@employee.id) %>

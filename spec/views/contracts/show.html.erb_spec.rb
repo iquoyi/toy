@@ -14,15 +14,15 @@ RSpec.describe "contracts/show", type: :view do
     expect(rendered).to match(/Legal/)
   end
 
-  it 'renders include edit link' do
-    render
-    expect(rendered).to include('Edit')
-    assert_select("a[href=?]", edit_employee_contract_path(@employee.id, @contract.id))
-  end
+  # it 'renders include edit link' do
+  #   render
+  #   expect(rendered).to include('Edit')
+  #   assert_select("a[href=?]", edit_employee_contract_path(@employee.id, @contract.id))
+  # end
 
-  it 'renders include back link' do
-    render
-    expect(rendered).to include('Back')
-    assert_select("a[href=?]", employee_path(@employee.id))
-  end
+  # it 'renders include back link' do
+  #   render
+  #   expect(rendered).to include('Back')
+  #   assert_select("a[href=?]", employee_path(@employee.id))
+  # end
 end

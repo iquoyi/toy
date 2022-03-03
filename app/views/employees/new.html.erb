@@ -1,7 +1,6 @@
 <% content_for :breadcrumb do %>
   <li class="breadcrumb-item active">Employees <span class="badge bg-info">ADD</span></li>
+  <%= back_to employees_path %>
 <% end %>
 
 <%= render 'form', employee: @employee %>
-
-<%= link_to 'Back', employees_path %>

@@ -9,6 +9,48 @@ RSpec.describe Employee, type: :model do
     Timecop.return
   end
 
+  describe 'normal test' do
+    before do
+      Contract.truncate
+      ContractVersion.truncate
+      described_class.truncate
+      EmployeeVersion.truncate
+      today = Time.zone.today
+      [
+        { first_name: 'Zhang', last_name: 'San', birthday: '2000-01-01' },
+        { first_name: 'Li', last_name: 'Si', birthday: '2000-12-31' }
+      ].each do |employee_item|
+        employee = described_class.new
+        employee.update_attributes(employee_item)
+
+        [
+          { start_date: today - 4, end_date: today - 2, legal: 'Trainee' },
+          { start_date: today - 1, end_date: today + 1, legal: 'Employer' },
+          { start_date: today + 2, end_date: today + 4, legal: 'Leader' }
+        ].each do |contract_item|
+          contract = Contract.new(employee_id: employee.id)
+          contract.update_attributes(contract_item)
+        end
+      end
+    end
+
+    it 'query by name' do
+      expect(described_class.by_name.size).to eq(2)
+      expect(described_class.by_name('zhang').size).to eq(1)
+      expect(described_class.by_name('Zhang').size).to eq(1)
+      expect(described_class.by_name('x').size).to eq(0)
+
+      employee = described_class.first
+      Timecop.freeze Time.zone.today - 1
+      employee.update_attributes(first_name: 'Zhao', last_name: 'San')
+      Sequel::Plugins::Bitemporal.at(Time.zone.today - 1) do
+        expect(described_class.by_name('Zhang').size).to eq(0)
+      end
+      expect(described_class.by_name('Zhang').size).to eq(0)
+      expect(described_class.by_name('Zhao').size).to eq(1)
+    end
+  end
+
   it "checks version class is given" do
     expect do
       described_class.plugin :bitemporal

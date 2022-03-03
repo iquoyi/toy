@@ -12,8 +12,31 @@ import "channels"
 Rails.start()
 Turbolinks.start()
 
+import '@fortawesome/fontawesome-free'
 import "bootstrap"
+
+// query elements by css selector
+const querySelector = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
 
 document.addEventListener("turbolinks:load", () => {
   // scripts
+  querySelector('.search-form').forEach($form => {
+    // add Enter event listener to form element
+    $form.addEventListener('keyup', e => {
+      if (e.code === 'Enter') {
+        e.preventDefault()
+        $form.submit()
+      }
+    })
+
+    // add blur event listener to text input elements
+    querySelector('input[type=text]', $form).forEach($input => {
+      $input.addEventListener('blur', () => $form.submit())
+    })
+
+    // add change event listener to date input elements
+    querySelector('input[type=date]', $form).forEach($input => {
+      $input.addEventListener('change', () => $form.submit())
+    })
+  })
 })

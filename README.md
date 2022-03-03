@@ -42,6 +42,14 @@ Interview project.
 ## Run
 
 ```sh
+$ ruby -v
+> ruby 2.7.2
+$ rails
+> Rails 6.1.4.6
+$ bundle
+$ rails db:create db:migrate db:seed
+$ rails s
+# visit localhost:3000
 ```
 
 ## Test

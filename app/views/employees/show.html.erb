@@ -1,35 +1,15 @@
 <% content_for :breadcrumb do %>
   <li class="breadcrumb-item active">Employees <span class="badge bg-success">DETAIL</span></li>
+  <%= back_to employees_path %>
+<% end %>
+
+<% content_for :functions do %>
+  <%= link_to 'New Contract', new_employee_contract_path(employee_id: @employee.id), class: 'btn btn-primary' %>
 <% end %>
 
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>First name:</strong>
-  <%= @employee.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @employee.last_name %>
-</p>
-
-<p>
-  <strong>Birthday:</strong>
-  <%= @employee.birthday %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @employee.address %>
-</p>
-
-<%= link_to 'New Contract', new_employee_contract_path(employee_id: @employee.id) %> |
-<%= link_to 'Edit', edit_employee_path(@employee.id) %> |
-<%= link_to 'Back', employees_path %>
-
-<hr class="mt-5">
-<%= render 'employees/contracts', contracts: @contracts if @contracts %>
-
-<hr class="mt-5">
-<%= render 'employees/versions', versions: @versions if @versions %>
+<%= render 'employees/filter' %>
+<%= render 'employees/form', employee: @employee %>
+<%= render 'employees/contracts' if @contracts %>
+<%= render 'employees/versions' if @versions %>

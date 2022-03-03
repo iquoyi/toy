@@ -1,33 +1,42 @@
-<%= form_for(:contract, form_option_builder(contract, employee_id: @employee.id)) do |form| %>
+<div class="card shadow-sm">
+  <div class="card-body">
+    <%= form_for(:contract, form_option_builder(contract, employee_id: @employee.id)) do |form| %>
+      <% if contract.errors.any? %>
+        <div id="error_explanation" class="alert alert-danger">
+          <h2><%= pluralize(contract.errors.count, "error") %> prohibited this contract from being saved:</h2>
 
-  <% if contract.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(contract.errors.count, "error") %> prohibited this contract from being saved:</h2>
+          <ul class="mb-0">
+            <% contract.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-      <ul>
-        <% contract.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+      <div class="row mb-2">
+        <%= form.label :start_date, class: 'col-sm-2 col-form-label text-end' %>
+        <div class="col-sm-10">
+          <%= form.date_field :start_date, class: 'form-control' %>
+        </div>
+      </div>
 
-  <div class="field">
-    <%= form.label :start_date %>
-    <%= form.date_field :start_date %>
+      <div class="row mb-2">
+        <%= form.label :end_date, class: 'col-sm-2 col-form-label text-end' %>
+        <div class="col-sm-10">
+          <%= form.date_field :end_date, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="row mb-2">
+        <%= form.label :legal, class: 'col-sm-2 col-form-label text-end' %>
+        <div class="col-sm-10">
+          <%= form.text_field :legal, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="d-grid mt-4">
+        <%= form.submit class: 'btn btn-lg btn-primary' %>
+      </div>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= form.label :end_date %>
-    <%= form.date_field :end_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :legal %>
-    <%= form.text_field :legal %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

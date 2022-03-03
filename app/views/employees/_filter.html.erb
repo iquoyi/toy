@@ -1,0 +1,12 @@
+<div class="card shadow-sm">
+  <div class="card-body">
+    <%= form_with url: employee_path(@employee.id), method: :get, class: 'search-form' do |f| %>
+      <div class="row mb-2">
+        <%= f.label :validity, 'Validity date', class: 'col-sm-2 col-form-label text-end' %>
+        <div class="col-sm-4">
+          <%= f.date_field :validity, class: 'form-control', value: params[:validity] %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

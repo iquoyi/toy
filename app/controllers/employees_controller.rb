@@ -1,13 +1,19 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
 
-  # GET /employees or /employees.json
+  # GET /employees
   def index
-    @employees = Employee.with_current_version.all
+    @employees = Employee.by_name(params[:name])
   end
 
-  # GET /employees/1 or /employees/1.json
+  # GET /employees/1
   def show
+    params[:validity] ||= Time.zone.today
+
+    Sequel::Plugins::Bitemporal.at(params[:validity]) do
+      @employee.current_version(reload: true)
+    end
+
     @versions = @employee.versions_dataset.order(:id).all
     @contracts = @employee.contracts
   end
@@ -21,7 +27,7 @@ class EmployeesController < ApplicationController
   def edit
   end
 
-  # POST /employees or /employees.json
+  # POST /employees
   def create
     @employee = Employee.new
 
@@ -32,16 +38,23 @@ class EmployeesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /employees/1 or /employees/1.json
+  # PATCH/PUT /employees/1
   def update
-    if @employee.update_attributes(employee_params)
+    params[:validity] ||= Time.zone.today
+
+    Sequel::Plugins::Bitemporal.at(params[:validity]) do
+      @employee.update_attributes(employee_params)
+      @employee.current_version(reload: true)
+    end
+
+    if @employee.errors.empty?
       redirect_to employee_url(@employee.id), notice: "Employee was successfully updated."
     else
       render :edit
     end
   end
 
-  # DELETE /employees/1 or /employees/1.json
+  # DELETE /employees/1
   def destroy
     @employee.destroy
 
