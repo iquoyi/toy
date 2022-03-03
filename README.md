@@ -60,5 +60,9 @@ $ rails s
 ...
 > rails c
 # all employees with current contract
-> Employee.with_contracts.all
+> Employee.join_contracts.all
+# avoid N+1 query
+> Employee.eager_contracts.all
+# query by contract's legal
+> Employee.by_legal('Leader').all
 ```

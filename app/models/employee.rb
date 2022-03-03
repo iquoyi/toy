@@ -14,9 +14,13 @@ class Employee < Sequel::Model
       ).all
     end
 
-    # dataset for employees with contract fields
-    def with_contracts
-      # eager_graph(:current_version, contracts: :current_version)
+    # Avoid N+1
+    def eager_contracts
+      eager_graph(:current_version, contracts: :current_version)
+    end
+
+    # all employees with current contract fields
+    def join_contracts
       association_left_join(:current_version, contracts: :current_version)
     end
 
@@ -24,6 +28,11 @@ class Employee < Sequel::Model
     def with_current_contract
       today = Time.zone.today
       with_contracts.where(Sequel.lit("start_date <= ? AND end_date >= ?", today, today))
+    end
+
+    # query by contract's legal
+    def by_legal(legal)
+      join_contracts.where(Sequel.like(Sequel.function(:lower, :legal), "%#{legal.downcase}%"))
     end
   end
 end
