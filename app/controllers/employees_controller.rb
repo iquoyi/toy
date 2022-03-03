@@ -9,6 +9,7 @@ class EmployeesController < ApplicationController
   # GET /employees/1 or /employees/1.json
   def show
     @versions = @employee.versions_dataset.order(:id).all
+    @contracts = @employee.contracts
   end
 
   # GET /employees/new

@@ -1,19 +1,18 @@
 module ApplicationHelper
-  def form_url_builder(record)
-    options = {
-      controller: record.class.name.tableize,
-      action: 'create'
-    }
+  def form_url_builder(record, opts = {})
+    opts[:controller] = record.class.name.tableize
+    opts[:action] = 'create'
+
     if record&.id
-      options[:action] = 'update'
-      options[:id] = record.id
+      opts[:action] = 'update'
+      opts[:id] = record.id
     end
-    url_for(options)
+    url_for(opts)
   end
 
-  def form_option_builder(record)
+  def form_option_builder(record, params = {})
     {
-      url: form_url_builder(record),
+      url: form_url_builder(record, params),
       method: record&.id ? 'PATCH' : 'POST'
     }
   end

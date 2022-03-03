@@ -13,6 +13,9 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/contracts", type: :request do
+  let(:employee) { Employee.create(first_name: 'First', last_name: 'Last') }
+  let(:contract) { Contract.new(employee_id: employee.id) }
+
   # Contract. As you add validations to Contract, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
@@ -31,33 +34,38 @@ RSpec.describe "/contracts", type: :request do
     }
   end
 
-  describe "GET /index" do
-    it "renders a successful response" do
-      Contract.create valid_attributes
-      get contracts_url
-      expect(response).to be_successful
-    end
-  end
+  # describe "GET /index" do
+  #   before do
+  #     Contract.truncate
+  #     ContractVersion.truncate
+  #   end
+
+  #   it "renders a successful response" do
+  #     contract.update_attributes valid_attributes
+  #     get employee_contracts_url(employee.id)
+  #     expect(response).to be_successful
+  #   end
+  # end
 
   describe "GET /show" do
     it "renders a successful response" do
-      contract = Contract.create valid_attributes
-      get contract_url(contract.id)
+      contract.update_attributes valid_attributes
+      get employee_contract_url(employee.id, contract.id)
       expect(response).to be_successful
     end
   end
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_contract_url
+      get new_employee_contract_url(employee.id)
       expect(response).to be_successful
     end
   end
 
   describe "GET /edit" do
     it "render a successful response" do
-      contract = Contract.create valid_attributes
-      get edit_contract_url(contract.id)
+      contract.update_attributes valid_attributes
+      get edit_employee_contract_url(employee.id, contract.id)
       expect(response).to be_successful
     end
   end
@@ -66,25 +74,25 @@ RSpec.describe "/contracts", type: :request do
     context "with valid parameters" do
       it "creates a new Contract" do
         expect do
-          post contracts_url, params: { contract: valid_attributes }
+          post employee_contracts_url(employee.id), params: { contract: valid_attributes }
         end.to change(Contract, :count).by(1)
       end
 
       it "redirects to the created contract" do
-        post contracts_url, params: { contract: valid_attributes }
-        expect(response).to redirect_to(contract_url(Contract.last.id))
+        post employee_contracts_url(employee.id), params: { contract: valid_attributes }
+        expect(response).to redirect_to(employee_contract_url(employee.id, Contract.last.id))
       end
     end
 
     context "with invalid parameters" do
       it "does not create a new Contract" do
         expect do
-          post contracts_url, params: { contract: invalid_attributes }
+          post employee_contracts_url(employee.id), params: { contract: invalid_attributes }
         end.to change(Contract, :count).by(0)
       end
 
       it "renders a successful response (i.e. to display the 'new' template)" do
-        post contracts_url, params: { contract: invalid_attributes }
+        post employee_contracts_url(employee.id), params: { contract: invalid_attributes }
         expect(response).to be_successful
       end
     end
@@ -94,31 +102,31 @@ RSpec.describe "/contracts", type: :request do
     context "with valid parameters" do
       let(:new_attributes) do
         {
-          start_date: '2022-03-01',
-          end_date: '2022-03-02',
+          start_date: '2022-03-03',
+          end_date: '2022-03-04',
           legal: 'New Legal'
         }
       end
 
       it "updates the requested contract" do
-        contract = Contract.create valid_attributes
-        patch contract_url(contract.id), params: { contract: new_attributes }
+        contract.update_attributes valid_attributes
+        patch employee_contract_url(employee.id, contract.id), params: { contract: new_attributes }
         contract.reload
         expect(contract.legal).to eq(new_attributes[:legal])
       end
 
       it "redirects to the contract" do
-        contract = Contract.create valid_attributes
-        patch contract_url(contract.id), params: { contract: new_attributes }
+        contract.update_attributes valid_attributes
+        patch employee_contract_url(employee.id, contract.id), params: { contract: new_attributes }
         contract.reload
-        expect(response).to redirect_to(contract_url(contract.id))
+        expect(response).to redirect_to(employee_contract_url(employee.id, contract.id))
       end
     end
 
     context "with invalid parameters" do
       it "renders a successful response (i.e. to display the 'edit' template)" do
-        contract = Contract.create valid_attributes
-        patch contract_url(contract.id), params: { contract: invalid_attributes }
+        contract.update_attributes valid_attributes
+        patch employee_contract_url(employee.id, contract.id), params: { contract: invalid_attributes }
         expect(response).to be_successful
       end
     end
@@ -126,17 +134,16 @@ RSpec.describe "/contracts", type: :request do
 
   describe "DELETE /destroy" do
     it "destroys the requested contract" do
-      contract = Contract.new
       contract.update_attributes valid_attributes
       expect do
-        delete contract_url(contract.id)
+        delete employee_contract_url(employee.id, contract.id)
       end.to change { Contract.with_current_or_future_versions.all.size }.by(-1)
     end
 
-    it "redirects to the contracts list" do
-      contract = Contract.create valid_attributes
-      delete contract_url(contract.id)
-      expect(response).to redirect_to(contracts_url)
+    it "redirects to the employee detail" do
+      contract.update_attributes valid_attributes
+      delete employee_contract_url(employee.id, contract.id)
+      expect(response).to redirect_to(employee_url(employee.id))
     end
   end
 end

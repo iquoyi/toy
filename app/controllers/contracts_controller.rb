@@ -1,12 +1,13 @@
 class ContractsController < ApplicationController
+  before_action :set_employee
   before_action :set_contract, only: [:show, :edit, :update, :destroy]
 
-  # GET /contracts or /contracts.json
+  # GET /contracts
   def index
-    @contracts = Contract.all
+    @contracts = @employee.contracts
   end
 
-  # GET /contracts/1 or /contracts/1.json
+  # GET /contracts/1
   def show
   end
 
@@ -19,39 +20,42 @@ class ContractsController < ApplicationController
   def edit
   end
 
-  # POST /contracts or /contracts.json
+  # POST /contracts
   def create
-    @contract = Contract.new(contract_params)
+    @contract = Contract.new(employee_id: @employee.id)
 
     if @contract.update_attributes(contract_params)
-      redirect_to contract_url(@contract.id), notice: "Contract was successfully created."
+      # @employee.add_contract(@contract)
+      redirect_to employee_contract_url(@employee.id, @contract.id), notice: "Contract was successfully created."
     else
       render :new
     end
   end
 
-  # PATCH/PUT /contracts/1 or /contracts/1.json
+  # PATCH/PUT /contracts/1
   def update
     @contract.set(contract_params)
 
     if @contract.update_attributes(contract_params)
-      redirect_to contract_url(@contract.id), notice: "Contract was successfully updated."
+      # @employee.add_contract(@contract)
+      redirect_to employee_contract_url(@employee.id, @contract.id), notice: "Contract was successfully updated."
     else
       render :edit
     end
   end
 
-  # DELETE /contracts/1 or /contracts/1.json
+  # DELETE /contracts/1
   def destroy
     @contract.destroy
 
-    respond_to do |format|
-      format.html { redirect_to contracts_url, notice: "Contract was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to employee_url(@employee.id), notice: "Contract was successfully destroyed."
   end
 
   private
+
+  def set_employee
+    @employee = Employee.find(id: params[:employee_id])
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_contract

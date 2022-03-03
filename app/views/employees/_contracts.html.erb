@@ -1,11 +1,6 @@
-<% content_for :breadcrumb do %>
-  <li class="breadcrumb-item active">Contracts <span class="badge bg-primary">List</span></li>
-<% end %>
-
-<p id="notice"><%= notice %></p>
-
 <div class="table-responsive">
   <table class="table table-striped table-hover table-bordered text-center">
+    <caption>List of contracts</caption>
     <thead>
       <tr>
         <th>Start date</th>
@@ -16,7 +11,7 @@
     </thead>
 
     <tbody>
-      <% @contracts.each do |contract| %>
+      <% contracts.each do |contract| %>
         <tr>
           <td><%= contract.start_date %></td>
           <td><%= contract.end_date %></td>
@@ -29,7 +24,3 @@
     </tbody>
   </table>
 </div>
-
-<br>
-
-<%= link_to 'New Contract', new_employee_contract_path(employee_id: @employee.id) %>

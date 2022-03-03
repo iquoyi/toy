@@ -1,5 +1,5 @@
-<%= form_for(:contract, form_option_builder(contract)) do |form| %>
-<%# binding.pry %>
+<%= form_for(:contract, form_option_builder(contract, employee_id: @employee.id)) do |form| %>
+
   <% if contract.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(contract.errors.count, "error") %> prohibited this contract from being saved:</h2>

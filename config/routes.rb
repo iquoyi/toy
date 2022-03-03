@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  resources :contracts
-  resources :employees
+  resources :employees do
+    resources :contracts, except: :index
+  end
   root 'static#index'
 end
