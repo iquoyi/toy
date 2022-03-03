@@ -12,6 +12,7 @@ import "channels"
 Rails.start()
 Turbolinks.start()
 
+import '@fortawesome/fontawesome-free'
 import "bootstrap"
 
 // query elements by css selector
