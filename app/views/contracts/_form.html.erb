@@ -1,4 +1,4 @@
-<%= form_for(:contract, form_option_builder(contract)) do |form| %>
+<%= form_for(:contract, form_option_builder(contract, employee_id: @employee.id)) do |form| %>
 
   <% if contract.errors.any? %>
     <div id="error_explanation">

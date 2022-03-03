@@ -21,9 +21,9 @@
           <td><%= contract.start_date %></td>
           <td><%= contract.end_date %></td>
           <td><%= contract.legal %></td>
-          <td><%= link_to 'Show', contract_path(contract.id) %></td>
-          <td><%= link_to 'Edit', edit_contract_path(contract.id) %></td>
-          <td><%= link_to 'Destroy', contract_path(contract.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Show', employee_contract_path(@employee.id, contract.id) %></td>
+          <td><%= link_to 'Edit', edit_employee_contract_path(@employee.id, contract.id) %></td>
+          <td><%= link_to 'Destroy', employee_contract_path(@employee.id, contract.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>
