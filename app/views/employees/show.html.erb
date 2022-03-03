@@ -28,8 +28,5 @@
 <%= link_to 'Edit', edit_employee_path(@employee.id) %> |
 <%= link_to 'Back', employees_path %>
 
-<hr class="mt-5">
 <%= render 'employees/contracts', contracts: @contracts if @contracts %>
-
-<hr class="mt-5">
 <%= render 'employees/versions', versions: @versions if @versions %>
