@@ -19,6 +19,6 @@ module ApplicationHelper
 
   # link back to custom path
   def back_to(path)
-    link_to('<i class="fa-solid fa-arrow-left"></i>'.html_safe, path, class: 'text-secondary ms-2')
+    link_to('<i class="fa-solid fa-arrow-left fa-2xl"></i>'.html_safe, path, class: 'text-secondary ms-2')
   end
 end
