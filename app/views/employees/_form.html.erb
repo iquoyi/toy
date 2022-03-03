@@ -3,10 +3,10 @@
     <%= form_for(:employee, form_option_builder(employee)) do |f| %>
 
       <% if employee.errors.any? %>
-        <div id="error_explanation">
+        <div id="error_explanation" class="alert alert-danger">
           <h2><%= pluralize(employee.errors.count, "error") %> prohibited this contract from being saved:</h2>
 
-          <ul>
+          <ul class="mb-0">
             <% employee.errors.full_messages.each do |msg| %>
               <li><%= msg %></li>
             <% end %>

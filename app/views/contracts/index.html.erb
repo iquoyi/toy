@@ -1,5 +1,6 @@
 <% content_for :breadcrumb do %>
   <li class="breadcrumb-item active">Contracts <span class="badge bg-primary">List</span></li>
+  <%= back_to employee_path(@employee.id) %>
 <% end %>
 
 <p id="notice"><%= notice %></p>
