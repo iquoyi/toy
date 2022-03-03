@@ -9,6 +9,7 @@
 
 <p id="notice"><%= notice %></p>
 
+<%= render 'employees/filter' %>
 <%= render 'employees/form', employee: @employee %>
-<%= render 'employees/contracts', contracts: @contracts if @contracts %>
-<%= render 'employees/versions', versions: @versions if @versions %>
+<%= render 'employees/contracts' if @contracts %>
+<%= render 'employees/versions' if @versions %>

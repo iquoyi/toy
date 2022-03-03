@@ -4,6 +4,16 @@ class Employee < Sequel::Model
   one_to_many :contracts
 
   dataset_module do
+    def by_name(name)
+      return eager_graph(:current_version).all unless name
+
+      # Note the | operator for OR (https://github.com/jeremyevans/sequel/blob/master/doc/querying.rdoc#label-SQL-3A-3AExpression)
+      eager_graph(:current_version).where(
+        Sequel.like(Sequel.function(:lower, :first_name), "%#{name.downcase}%") |
+        Sequel.like(Sequel.function(:lower, :last_name), "%#{name.downcase}%")
+      ).all
+    end
+
     # dataset for employees with contract fields
     def with_contracts
       association_left_join(:current_version, contracts: :current_version)
@@ -13,30 +23,6 @@ class Employee < Sequel::Model
     def with_current_contract
       today = Time.zone.today
       with_contracts.where(Sequel.lit("start_date <= ? AND end_date >= ?", today, today))
-    end
-
-    def by_first_name(first_name)
-      where(Sequel.like(Sequel.function(:lower, :first_name), "%#{first_name.downcase}%"))
-    end
-
-    def by_address(address)
-      where(Sequel.like(Sequel.function(:lower, :address), "%#{address.downcase}%"))
-    end
-
-    def by_last_name(last_name)
-      with_current_contract.where(Sequel.like(Sequel.function(:lower, :last_name), "%#{last_name.downcase}%"))
-    end
-
-    def by_birthday(birthday)
-      with_current_contract.where(Sequel.lit("birthday = ?", birthday))
-    end
-
-    def by_date(date)
-      with_current_contract.where(Sequel.lit("start_date <= ? AND end_date >= ?", date, date))
-    end
-
-    def by_legal(legal)
-      with_current_contract.where(Sequel.like(Sequel.function(:lower, :legal), "%#{legal.downcase}%"))
     end
   end
 end

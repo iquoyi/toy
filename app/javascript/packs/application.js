@@ -29,9 +29,14 @@ document.addEventListener("turbolinks:load", () => {
       }
     })
 
-    // add blur event listener to input elements
+    // add blur event listener to text input elements
     querySelector('input[type=text]', $form).forEach($input => {
       $input.addEventListener('blur', () => $form.submit())
+    })
+
+    // add change event listener to date input elements
+    querySelector('input[type=date]', $form).forEach($input => {
+      $input.addEventListener('change', () => $form.submit())
     })
   })
 })

@@ -1,4 +1,7 @@
-<div class="card shadow-sm">
+<div class="card shadow-sm mt-4">
+  <div class="card-header">
+    <h4 class="mb-0">Personal data</h4>
+  </div>
   <div class="card-body">
     <%= form_for(:employee, form_option_builder(employee)) do |f| %>
 
@@ -13,6 +16,8 @@
           </ul>
         </div>
       <% end %>
+
+      <%= hidden_field_tag :validity, params[:validity] %>
 
       <div class="row mb-2">
         <%= f.label :first_name, class: 'col-sm-2 col-form-label text-end' %>
