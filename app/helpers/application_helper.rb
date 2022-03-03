@@ -16,4 +16,9 @@ module ApplicationHelper
       method: record&.id ? 'PATCH' : 'POST'
     }
   end
+
+  # link back to custom path
+  def back_to(path)
+    link_to('<i class="fa-solid fa-arrow-left"></i>'.html_safe, path, class: 'text-secondary ms-2')
+  end
 end

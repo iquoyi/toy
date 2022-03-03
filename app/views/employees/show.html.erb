@@ -1,31 +1,14 @@
 <% content_for :breadcrumb do %>
   <li class="breadcrumb-item active">Employees <span class="badge bg-success">DETAIL</span></li>
+  <%= back_to employees_path %>
 <% end %>
+
 
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>First name:</strong>
-  <%= @employee.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @employee.last_name %>
-</p>
-
-<p>
-  <strong>Birthday:</strong>
-  <%= @employee.birthday %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @employee.address %>
-</p>
+<%= render 'employees/form', employee: @employee %>
 
 <%= link_to 'New Contract', new_employee_contract_path(employee_id: @employee.id) %> |
-<%= link_to 'Edit', edit_employee_path(@employee.id) %> |
 <%= link_to 'Back', employees_path %>
 
 <%= render 'employees/contracts', contracts: @contracts if @contracts %>
