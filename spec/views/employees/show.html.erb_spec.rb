@@ -13,9 +13,9 @@ RSpec.describe "employees/show", type: :view do
     expect(rendered).to match(/Address/)
   end
 
-  it 'renders include links' do
-    render
-    expect(rendered).to include('Edit')
-    expect(rendered).to include('Back')
-  end
+  # it 'renders include links' do
+  #   render
+  #   expect(rendered).to include('Edit')
+  #   expect(rendered).to include('Back')
+  # end
 end
