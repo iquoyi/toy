@@ -4,7 +4,7 @@ class Employee < Sequel::Model
   one_to_many :contracts
 
   dataset_module do
-    def by_name(name)
+    def by_name(name = nil)
       return eager_graph(:current_version).all unless name
 
       # Note the | operator for OR (https://github.com/jeremyevans/sequel/blob/master/doc/querying.rdoc#label-SQL-3A-3AExpression)
@@ -14,16 +14,16 @@ class Employee < Sequel::Model
       ).all
     end
 
-    # dataset for employees with contract fields
-    def with_contracts
-      association_left_join(:current_version, contracts: :current_version)
-    end
+    # # dataset for employees with contract fields
+    # def with_contracts
+    #   association_left_join(:current_version, contracts: :current_version)
+    # end
 
-    # dataset for employees with a current contract fields
-    def with_current_contract
-      today = Time.zone.today
-      with_contracts.where(Sequel.lit("start_date <= ? AND end_date >= ?", today, today))
-    end
+    # # dataset for employees with a current contract fields
+    # def with_current_contract
+    #   today = Time.zone.today
+    #   with_contracts.where(Sequel.lit("start_date <= ? AND end_date >= ?", today, today))
+    # end
   end
 end
 
