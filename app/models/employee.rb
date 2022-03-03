@@ -16,7 +16,11 @@ class Employee < Sequel::Model
     end
 
     def by_first_name(first_name)
-      with_current_contract.where(Sequel.like(Sequel.function(:lower, :first_name), "%#{first_name.downcase}%"))
+      where(Sequel.like(Sequel.function(:lower, :first_name), "%#{first_name.downcase}%"))
+    end
+
+    def by_address(address)
+      where(Sequel.like(Sequel.function(:lower, :address), "%#{address.downcase}%"))
     end
 
     def by_last_name(last_name)
@@ -25,10 +29,6 @@ class Employee < Sequel::Model
 
     def by_birthday(birthday)
       with_current_contract.where(Sequel.lit("birthday = ?", birthday))
-    end
-
-    def by_address(address)
-      with_current_contract.where(Sequel.like(Sequel.function(:lower, :address), "%#{address.downcase}%"))
     end
 
     def by_date(date)

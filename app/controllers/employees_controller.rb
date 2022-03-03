@@ -3,7 +3,10 @@ class EmployeesController < ApplicationController
 
   # GET /employees or /employees.json
   def index
-    @employees = Employee.with_current_version.all
+    @employees_dateset = Employee.with_current_version
+    @employees_dateset = @employees_dateset.by_first_name(params[:first_name]) if params[:first_name]
+    @employees_dateset = @employees_dateset.by_address(params[:address]) if params[:address]
+    @employees = @employees_dateset.all
   end
 
   # GET /employees/1 or /employees/1.json
