@@ -2,39 +2,43 @@
   <li class="breadcrumb-item active">Employees <span class="badge bg-primary">List</span></li>
 <% end %>
 
+<% content_for :functions do %>
+  <%= link_to 'New Contract', new_employee_path, class: 'btn btn-primary' %>
+<% end %>
+
 <%# Search Form %>
 <%= render 'employees/search' %>
 
 <p id="notice"><%= notice %></p>
 
-<div class="table-responsive">
-  <table class="table table-striped table-hover table-bordered text-center">
-    <thead>
-      <tr>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Birthday</th>
-        <th>Address</th>
-        <th colspan="3">Action</th>
-      </tr>
-    </thead>
+<div class="card shadow-sm">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-striped table-hover table-bordered text-center">
+        <thead>
+          <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Birthday</th>
+            <th>Address</th>
+            <th colspan="3">Action</th>
+          </tr>
+        </thead>
 
-    <tbody>
-      <% @employees.each do |employee| %>
-        <tr>
-          <td><%= employee.first_name %></td>
-          <td><%= employee.last_name %></td>
-          <td><%= employee.birthday %></td>
-          <td><%= employee.address %></td>
-          <td><%= link_to 'Show', employee_path(employee.id) %></td>
-          <td><%= link_to 'Edit', edit_employee_path(employee.id) %></td>
-          <td><%= link_to 'Destroy', employee_path(employee.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+        <tbody>
+          <% @employees.each do |employee| %>
+            <tr>
+              <td><%= employee.first_name %></td>
+              <td><%= employee.last_name %></td>
+              <td><%= employee.birthday %></td>
+              <td><%= employee.address %></td>
+              <td><%= link_to 'Show', employee_path(employee.id) %></td>
+              <td><%= link_to 'Edit', edit_employee_path(employee.id) %></td>
+              <td><%= link_to 'Destroy', employee_path(employee.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
-
-<br>
-
-<%= link_to 'New Employee', new_employee_path %>
