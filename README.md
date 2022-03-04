@@ -47,6 +47,7 @@ $ ruby -v
 $ rails
 > Rails 6.1.4.6
 $ bundle
+$ yarn
 $ rails db:create db:migrate db:seed
 $ rails s
 # visit localhost:3000
