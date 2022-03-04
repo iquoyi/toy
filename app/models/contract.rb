@@ -12,7 +12,25 @@ class Contract < Sequel::Model
     super
     validates_presence [:start_date, :end_date]
     validates_format DATE_REGEXP, [:start_date, :end_date]
+    validates_date
     validates_overlap(start_date, end_date)
+  end
+
+  # ds = '2022-03-02'
+  # d =
+
+  # (ds.respond_to? :to_date && ds.to_date.instance_of?(Date)) || ds.instance_of?(Date)
+  # start_date = '2022-03-02'
+  # end_date = '2022-03-01'
+  # e = Employee.first
+  # c = Contract.new(employee_id: e.id, start_date: start_date, end_date: end_date)
+  def validates_date
+    return unless start_date && end_date
+
+    @start = start_date.to_date if start_date.respond_to?(:to_date)
+    @end = end_date.to_date if end_date.respond_to?(:to_date)
+
+    errors.add(:end_date, "must to be greater than start_date(#{start_date})") if @start >= @end
   end
 
   def validates_overlap(start_date, end_date)

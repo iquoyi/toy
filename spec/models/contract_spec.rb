@@ -9,7 +9,7 @@ RSpec.describe Contract, type: :model do
       {
         employee_id: employee.id,
         start_date: '2022-03-01',
-        end_date: '2022-03-01',
+        end_date: '2022-03-02',
         legal: 'Legal'
       }
     end
@@ -45,7 +45,6 @@ RSpec.describe Contract, type: :model do
     context 'with invalid parameters' do
       it 'create a contract' do
         expect do
-          # contract.update_attributes(invalid_attributes)
           described_class.create(invalid_attributes)
         end.to raise_error(/start_date is not present/)
       end
@@ -53,6 +52,14 @@ RSpec.describe Contract, type: :model do
       it 'update a contract' do
         contract.update_attributes(invalid_attributes)
         expect(contract.errors.full_messages).to include('start_date is not present')
+
+        invalid_attributes[:start_date] = '2022-03-02'
+        contract.update_attributes(invalid_attributes)
+        expect(contract.errors).to include(end_date: ["must to be greater than start_date(2022-03-02)"])
+
+        invalid_attributes[:start_date] = '2022-03-01'
+        contract.update_attributes(invalid_attributes)
+        expect(contract.errors).to include(end_date: ["must to be greater than start_date(2022-03-01)"])
       end
     end
 
